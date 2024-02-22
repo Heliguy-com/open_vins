@@ -1,4 +1,14 @@
-# OpenVINS
+# OpenVINS-Voxl
+
+Fork of the openvins library with the additional dependencies required to build for voxl.
+Based off of the workflows used in Modalai's packages for voxl.
+Requires to be compiled within the voxl [qrb5165-emulator](https://gitlab.com/voxl-public/support/voxl-docker/-/tree/master/qrb5165-emulator)
+Running the respective build and make_package scripts inside of ros1_build_scripts and ros2_build_scripts should result debian packages that can be directly installed on device
+When building for ROS1, make sure to first install the libraries for [opencv3](https://github.com/Heliguy-com/voxl-opencv-3-4-6) compiled for voxl here.
+
+## Known Bug
+
+In it's current state, the package voxl-opencv-3-4-6 cannot be installed on voxl. The current fix for this involves copying the individual libraries to /usr/lib64 manually and fixing the symlinks using this [script](https://github.com/Heliguy-com/drone-environment.voxl/blob/main/scripts/fix_paths_opencv3.sh).
 
 [![ROS 1 Workflow](https://github.com/rpng/open_vins/actions/workflows/build_ros1.yml/badge.svg)](https://github.com/rpng/open_vins/actions/workflows/build_ros1.yml)
 [![ROS 2 Workflow](https://github.com/rpng/open_vins/actions/workflows/build_ros2.yml/badge.svg)](https://github.com/rpng/open_vins/actions/workflows/build_ros2.yml)

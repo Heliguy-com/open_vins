@@ -1,0 +1,8 @@
+Package: voxl-open-vins-ros1
+Version: 0.0.1
+Section: base
+Priority: optional
+Architecture: arm64
+Depends:libmodal-pipe(>=2.6.0), libmodal-json, voxl-microdds-agent, libboost-all-dev, voxl-ceres-solver, libgoogle-glog-dev, ros-melodic-tf
+Maintainer: Harry Matthews <harry.matthews@heliguy.com>
+Description: ROS1 Node for VIO using Open Vins

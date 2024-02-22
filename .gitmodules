@@ -1,0 +1,16 @@
+[submodule "catkin_ws_qrb5165/src/image_common"]
+	path = catkin_ws_qrb5165/src/image_common
+	url = https://github.com/ros-perception/image_common.git
+	branch = noetic-devel
+[submodule "catkin_ws_qrb5165/src/vision_opencv"]
+	path = catkin_ws_qrb5165/src/vision_opencv
+	url = https://github.com/ros-perception/vision_opencv.git
+	branch = melodic
+[submodule "colcon_ws_qrb5165/src/vision_opencv"]
+	path = colcon_ws_qrb5165/src/vision_opencv
+	url = https://github.com/ros-perception/vision_opencv.git
+	branch = foxy
+[submodule "colcon_ws_qrb5165/src/image_common"]
+	path = colcon_ws_qrb5165/src/image_common
+	url = https://github.com/ros-perception/image_common.git
+	branch = foxy

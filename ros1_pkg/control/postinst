@@ -1,0 +1,50 @@
+#!/bin/bash
+set -e
+
+# source the foxy setup if it's their in case the user wants to start using
+# it right away after install. The following 5 lines are also loaded into
+# ~/.profile.d/ to get run normally too
+
+MELODICFILE="/opt/ros/melodic/setup.bash"
+OPEN_VINS="/opt/ros/melodic/open_vins/"
+
+build_dir="/home/root/open_vins/catkin_ws"
+
+# Correct the bad symlinks in the 
+find $OPEN_VINS -type l -exec bash -c '
+    link_target=$(readlink "$1")
+    if [ ! -e "$link_target" ]; then
+		echo "TARGET: $link_target"
+        if [[ "$link_target" == ${build_dir}/build/* ]]; then
+            BUILD_PATH=$(echo "$link_target" | cut -d'/' -f 7-)
+            correct_path="/opt/ros/melodic/open_vins/build/$BUILD_PATH"
+
+            if [ -e "$correct_path" ]; then
+                echo "Correcting symlink: $1 -> $correct_path"
+                ln -sf "$correct_path" "$1"
+            else
+                echo "Error: Target file not found for $1"
+            fi
+
+         elif [[ "$link_target" == ${build_dir}/src/* ]]; then
+            SRC_PATH=$(echo "$link_target" | cut -d'/' -f 7-)
+            correct_path="/opt/ros/melodic/open_vins/src/$SRC_PATH"
+
+            if [ -e "$correct_path" ]; then
+                echo "Correcting symlink: $1 -> $correct_path"
+                ln -sf "$correct_path" "$1"
+            else
+                echo "Error: Target file not found for $1"
+            fi
+
+        fi
+    fi
+' _ {} \;
+
+# TODO: Test that this replaces the path inside of setup.sh correctly.
+sed 's/: ${_CATKIN_SETUP_DIR:=/home/root/VIO/src/open_vins/catkin_ws/install}/: ${_CATKIN_SETUP_DIR:=/opt/ros/melodic/open_vins/install}/g' /opt/ros/melodic/open_vins/install/setup.sh
+
+OPEN_VINS_FILE="${OPEN_VINS}/devel/setup.bash"
+if [ -f $MELODICFILE ]; then
+	source $OPEN_VINS_FILE
+fi
